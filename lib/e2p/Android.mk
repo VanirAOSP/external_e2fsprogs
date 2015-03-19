@@ -52,8 +52,6 @@ libext2_e2p_cflags := -O2 -g -W -Wall \
 
 libext2_e2p_system_shared_libraries := libc
 
-libext2_e2p_system_static_libraries := libc
-
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(libext2_e2p_src_files)
