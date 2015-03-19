@@ -83,6 +83,22 @@ include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
 
+LOCAL_SRC_FILES := $(tune2fs_src_files)
+LOCAL_C_INCLUDES := $(tune2fs_c_includes)
+LOCAL_CFLAGS := $(tune2fs_cflags)
+LOCAL_STATIC_LIBRARIES := $(tune2fs_shared_libraries) $(tune2fs_system_shared_libraries) libext2fs
+LOCAL_MODULE := recovery_tune2fs
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/sbin
+LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/recovery
+LOCAL_MODULE_STEM := tune2fs
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+
 LOCAL_SRC_FILES := $(mke2fs_src_files)
 LOCAL_C_INCLUDES := $(mke2fs_c_includes)
 LOCAL_CFLAGS := $(mke2fs_cflags) $(mke2fs_cflags_linux)
@@ -164,6 +180,17 @@ tune2fs_shared_libraries := \
 
 tune2fs_system_shared_libraries := libc
 
+
+tune2fs_static_libraries := \
+	libext2_com_err \
+	libext2_blkid \
+	libext2_quota \
+	libext2_uuid_static \
+	libext2_e2p \
+	libext2fs
+
+tune2fs_system_static_libraries := libc
+
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(tune2fs_src_files)
@@ -181,14 +208,10 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(tune2fs_src_files)
 LOCAL_C_INCLUDES := $(tune2fs_c_includes)
 LOCAL_CFLAGS := $(tune2fs_cflags)
-LOCAL_STATIC_LIBRARIES := $(tune2fs_shared_libraries) $(tune2fs_system_shared_libraries) libext2fs
-LOCAL_MODULE := utility_tune2fs
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
-LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
-LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
-LOCAL_MODULE_STEM := tune2fs
+LOCAL_STATIC_LIBRARIES := $(tune2fs_static_libraries) $(tune2fs_system_static_libraries)
 LOCAL_FORCE_STATIC_EXECUTABLE := true
+LOCAL_MODULE := tune2fs_static
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_EXECUTABLE)
 
@@ -196,17 +219,12 @@ include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := $(tune2fs_src_files)
 LOCAL_C_INCLUDES := $(tune2fs_c_includes)
-LOCAL_CFLAGS := $(tune2fs_cflags)
-LOCAL_STATIC_LIBRARIES := $(tune2fs_shared_libraries) $(tune2fs_system_shared_libraries) libext2fs
-LOCAL_MODULE := recovery_tune2fs
+LOCAL_CFLAGS := $(tune2fs_cflags) -DBUILD_AS_LIB
+LOCAL_STATIC_LIBRARIES := $(tune2fs_static_libraries) $(tune2fs_system_static_libraries)
+LOCAL_MODULE := libtune2fs
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/sbin
-LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/recovery
-LOCAL_MODULE_STEM := tune2fs
-LOCAL_FORCE_STATIC_EXECUTABLE := true
 
-include $(BUILD_EXECUTABLE)
+include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
