@@ -117,16 +117,6 @@ e2fsck_shared_libraries := \
 	libext2_quota \
 	libext2_com_err \
 	libext2_e2p
-
-e2fsck_static_libraries := \
-	libext2fs \
-	libext2_blkid \
-	libext2_uuid_static \
-	libext2_profile \
-	libext2_quota \
-	libext2_com_err \
-	libext2_e2p
-
 e2fsck_system_shared_libraries := libc
 
 e2fsck_c_includes := external/e2fsprogs/lib

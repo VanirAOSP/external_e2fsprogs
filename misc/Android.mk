@@ -52,15 +52,6 @@ mke2fs_shared_libraries := \
 	libext2_com_err \
 	libext2_e2p
 
-mke2fs_static_libraries := \
-	libext2fs \
-	libext2_blkid \
-	libext2_uuid_static \
-	libext2_profile \
-	libext2_quota \
-	libext2_com_err \
-	libext2_e2p
-
 mke2fs_system_shared_libraries := libc
 
 include $(CLEAR_VARS)
